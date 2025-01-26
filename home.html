@@ -30,30 +30,37 @@
         <div class="scrollable">
             <div class="card">
                 <h1>Alissa Weigand</h1>
+                <p>Wiley</p>
                 <p><button onclick="showSuccessAlert()">Join</button></p>
             </div>
             <div class="card">
                 <h1>Shrung Patel</h1>
+                <p>Windsor</p>
                 <p><button onclick="showSuccessAlert()">Join</button></p>
             </div>
             <div class="card">
                 <h1>Sharanya Devogn</h1>
+                <p>Hillenbrand</p>
                 <p><button onclick="showSuccessAlert()">Join</button></p>
             </div>
             <div class="card">
                 <h1>Rohini Pillai</h1>
+                <p>Wiley</p>
                 <p><button onclick="showSuccessAlert()">Join</button></p>
             </div>
             <div class="card">
                 <h1>Low Taper Fade</h1>
+                <p>Ford</p>
                 <p><button onclick="showSuccessAlert()">Join</button></p>
             </div>
             <div class="card">
                 <h1>Angela Qian</h1>
+                <p>Wiley</p>
                 <p><button onclick="showSuccessAlert()">Join</button></p>
             </div>
             <div class="card">
                 <h1>Linda Xu</h1>
+                <p>Earhart</p>
                 <p><button onclick="showSuccessAlert()">Join</button></p>
             </div>
         </div>
@@ -79,8 +86,8 @@
             function goToDining(name) {
                 alert("Going to " + name + " Dining Court!");
             }
-            </script>
-        <gmp-map center="40.428540192473235, -86.92080321465559" zoom="15" map-id="DEMO_MAP_ID">
+        </script>
+        <gmp-map center="40.428540192473235, -86.92080321465559" zoom="15" map-id="map">
             <gmp-advanced-marker position="40.42714959780408, -86.9211147291905" title="Windsor">
               <img onclick="goToDining('Windsor')", class="flag-icon"
                    src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"/>
@@ -101,7 +108,35 @@
               <img onclick="goToDining('Ford')", class="flag-icon"
                    src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"/>
             </gmp-advanced-marker>
-          </gmp-map>
+            <script>
+                let pos;
+                function getLocation() {
+                    if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                    }
+                    pos = position.coords.latitude + ", " + position.coords.longitude;
+                }
+                createMarker(pos);
+
+                function createMarker(position) {
+                    // Initialize map
+                    const map = new google.maps.Map(document.getElementById('map'), {
+                        center: { lat: parseFloat(position.split(',')[0]), lng: parseFloat(position.split(',')[1]) },
+                        zoom: 14
+                    });
+
+                    const marker = new google.maps.Marker({
+                        position: { lat: parseFloat(position.split(',')[0]), lng: parseFloat(position.split(',')[1]) },
+                        map: map,
+                        title: "You"
+                    });
+
+                    const flagIcon = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+                    marker.setIcon(flagIcon);
+                }
+            getLocation();
+        </script>
+        </gmp-map>
         <div class="center-buttons">
             <button class="dining-court">Earhart</button>
             <button class="dining-court">Ford</button>

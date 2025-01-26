@@ -80,7 +80,6 @@ body {
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    width: 48%; /* Equal button width */
 }
 
 .login-button:hover {
