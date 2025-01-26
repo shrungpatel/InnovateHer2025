@@ -4,20 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="settings.css" />
   </head>
   <body>
     <div class="header">
       <a href="#default" class="logo"><img src="train.gif" class="train"></a>
       <div class="header-right">
-        <a class="active">Home</a>
-        <a href="settings.html">Settings</a>
+        <a href="home.html">Home</a>
+        <a class="active">Settings</a>
         <a href="login.html">Logout</a>
       </div>
     </div>
     <div class="container">
       <div class="left">
-        <h2>People</h2>
+        <h2>My Friends</h2>
         <ul>
           <script>
             // After setting up the DB, it should loop through a persons
@@ -68,22 +68,8 @@
         </ul>
       </div>
       <div class="right">
-        <h2>Location:</h2>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=YOUR_GOOGLE_MAPS_EMBED_LINK"
-          width="600"
-          height="450"
-          style="border: 0"
-          allowfullscreen=""
-          loading="lazy"
-        ></iframe>
-        <div class="center-buttons">
-            <button class="dining-court">Earhart</button>
-            <button class="dining-court">Ford</button>
-            <button class="dining-court">Hillenbrand</button>
-            <button class="dining-court">Wiley</button>
-            <button class="dining-court">Windsor</button>
-        </div>
+          <h2>Add Friends</h2>
+          <input type="text" id="name" name="name" class="bg-gray-700 p-2 rounded-md mb-4"><br><br>
       </div>
     </div>
 

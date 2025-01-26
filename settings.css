@@ -184,7 +184,7 @@ object-position: 25% 25%;
     max-width: 20%;
 }
 
-.center-buttons {
+.center {
     display: flex;
     justify-content: center;
     align-items: center;
