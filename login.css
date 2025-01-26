@@ -73,19 +73,19 @@ body {
 
 .login-button,
 .create-account-button {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
     background-color: #0a0a23; /* Dark background for buttons */
     color: white;
-    border: none;
     padding: 10px 20px;
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
+    width: 48%; /* Equal button width */
 }
 
-.login-button:hover {
-    background-color: darkgoldenrod;
-}
-
+.login-button:hover,
 .create-account-button:hover {
     background-color: darkgoldenrod;
 }
