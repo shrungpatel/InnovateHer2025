@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+    <div class="header">
+      <a href="#default" class="logo"><img src="train.gif" class="train"></a>
+      <div class="header-right">
+        <a class="active" href="#home">Home</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="left">
+        <h2>People</h2>
+        <ul>
+          <script>
+            // After setting up the DB, it should loop through a persons
+            // friends list and say invitation sent to [name]
+            // Function to show a success alert when the button is clicked
+            function showSuccessAlert() {
+                alert("Invitation sent!");
+            }
+            </script>
+        <div class="scrollable">
+            <div class="card">
+                <h1>Alissa Weigand</h1>
+                <p><button onclick="showSuccessAlert()">Join</button></p>
+            </div>
+            <div class="card">
+                <h1>Shrung Patel</h1>
+                <p><button onclick="showSuccessAlert()">Join</button></p>
+            </div>
+            <div class="card">
+                <h1>Sharanya Devogn</h1>
+                <p><button onclick="showSuccessAlert()">Join</button></p>
+            </div>
+            <div class="card">
+                <h1>Rohini Pillai</h1>
+                <p><button onclick="showSuccessAlert()">Join</button></p>
+            </div>
+            <div class="card">
+                <h1>Low Taper Fade</h1>
+                <p><button onclick="showSuccessAlert()">Join</button></p>
+            </div>
+            <div class="card">
+                <h1>Angela Qian</h1>
+                <p><button onclick="showSuccessAlert()">Join</button></p>
+            </div>
+            <div class="card">
+                <h1>Linda Xu</h1>
+                <p><button onclick="showSuccessAlert()">Join</button></p>
+            </div>
+        </div>
+        <!--<div class="alert">
+            <span
+              class="closebtn"
+              onclick="this.parentElement.style.display='none';"
+              >&times;</span
+            >
+            Invitation sent
+        </div> -->
+        </ul>
+      </div>
+      <div class="right">
+        <h2>Location:</h2>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=YOUR_GOOGLE_MAPS_EMBED_LINK"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purdue Dining Hall App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Set beige theme as default */
+        :root {
+            --bg-color: #f5f5dc;
+            --text-color: #2f343a;
+        }
+        
+        /* Override beige theme if user prefers dark theme */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #2f343a;
+                --text-color: #ffffff;
+            }
+        }
+    </style>
+</head>
+<body class="h-screen w-screen bg-[var(--bg-color)] text-[var(--text-color)] flex justify-center items-center" id="body">
+    <!-- Profile creation screen (visible by default) -->
+    <div id="profile-screen" class="bg-gray-800 p-4 rounded-md">
+        <h2 class="text-lg font-bold mb-4">Create Profile</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" class="bg-gray-700 p-2 rounded-md mb-4"><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="bg-gray-700 p-2 rounded-md mb-4"><br><br>
+            <button class="bg-gray-800 hover:bg-gray-700 py-2 px-4 rounded-md" id="create-profile-button">Create Profile</button>
+        </form>
+    </div>
+    
+    <!-- Home screen (hidden by default) -->
+    <div id="home-screen" class="h-full w-full hidden" style="display: none;">
+        <!-- Top bar -->
+        <nav class="flex justify-between items-center py-4 bg-black text-white border-b border-gray-600">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <img src="https://example.com/purdue-train-logo.png" alt="Purdue Train Logo" class="h-6 w-6 ml-2">
+            </div>
+            <button class="bg-gray-800 hover:bg-gray-700 py-2 px-4 rounded-md text-white" id="log-out-button">Log Out</button>
+        </nav>
+        
+        <!-- Main content -->
+        <div class="flex h-full">
+            <!-- Left panel (1/3) -->
+            <div class="w-1/3 bg-white p-4 border-r border-gray-600" id="users-panel">
+                <h2 class="text-lg font-bold mb-4 text-black">Users at <span id="dining-hall-name" class="text-black"></span></h2>
+                <ul id="users-list">
+                    <!-- Users will be listed here -->
+                </ul>
+            </div>
+            
+            <!-- Right panel (2/3) -->
+            <div class="w-2/3 bg-white p-4">
+                <h2 class="text-lg font-bold mb-4 text-black">Dining Halls</h2>
+                <div id="dining-halls-map">
+                    <!-- Geolocator will be rendered here -->
+                </div>
+                <ul id="dining-halls-list">
+                    <!-- Dining halls will be listed here -->
+                    <li><button class="bg-gray-800 hover:bg-gray-700 py-2 px-4 rounded-md" data-dining-hall="Wiley Dining Court">Wiley Dining Court</button></li>
+                    <li><button class="bg-gray-800 hover:bg-gray-700 py-2 px-4 rounded-md" data-dining-hall="Ford Dining Court">Ford Dining Court</button></li>
+                    <li><button class="bg-gray-800 hover:bg-gray-700 py-2 px-4 rounded-md" data-dining-hall="Harrison Dining Court">Harrison Dining Court</button></li>
+                    <li><button class="bg-gray-800 hover:bg-gray-700 py-2 px-4 rounded-md" data-dining-hall="Earhart Dining Court">Earhart Dining Court</button></li>
+                    <li><button class="bg-gray-800 hover:bg-gray-700 py-2 px-4 rounded-md" data-dining-hall="Hillenbrand Dining Court">Hillenbrand Dining Court</button></li>
+                </ul>
+                <button id="eat-here-button" class="bg-gray-800 hover:bg-gray-700 py-2 px-4 rounded-md absolute bottom-4 right-4 text-white" style="display: none;">Eat Here</button>
+            </div>
+        </div>
+        
+        <!-- Eat here screen (hidden by default) -->
+        <div id="eat-here-screen" class="fixed top-0 left-0 w-full h-full bg-[var(--bg-color)] flex justify-center items-center" style="display: none;">
+            <div class="bg-gray-800 p-4 rounded-md">
+                <h2 class="text-lg font-bold mb-4">You are eating at <span id="selected-dining-hall"></span></h2>
+                <p>Enjoy your meal!</p>
+                <button class="bg-gray-800 hover:bg-gray-700 py-2 px-4 rounded-md text-white" id="back-button">Back</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Get elements
+        const profileScreen = document.getElementById('profile-screen');
+        const homeScreen = document.getElementById('home-screen');
+        const createProfileButton = document.getElementById('create-profile-button');
+        const logOutButton = document.getElementById('log-out-button');
+        const usersPanel = document.getElementById('users-panel');
+        const usersList = document.getElementById('users-list');
+        const diningHallsList = document.getElementById('dining-halls-list');
+        const eatHereButton = document.getElementById('eat-here-button');
+        const eatHereScreen = document.getElementById('eat-here-screen');
+        const backButton = document.getElementById('back-button');
+        const selectedDiningHallElement = document.getElementById('selected-dining-hall');
+        
+        // Initialize users array
+        let users = [];
+        
+        // Add event listeners
+        createProfileButton.addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            users.push({ name, email, diningHall: null, time: null });
+            profileScreen.style.display = 'none';
+            homeScreen.style.display = 'block';
+        });
+        
+        logOutButton.addEventListener('click', () => {
+            homeScreen.style.display = 'none';
+            profileScreen.style.display = 'block';
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            users = [];
+            usersList.innerHTML = '';
+        });
+        
+        // Update users list when a dining hall is selected
+        diningHallsList.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const selectedDiningHall = e.target.getAttribute('data-dining-hall');
+                const usersAtDiningHall = users.filter((user) => user.diningHall === selectedDiningHall);
+                usersList.innerHTML = '';
+                usersAtDiningHall.forEach((user) => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${user.name} - ${user.time}`;
+                    usersList.appendChild(listItem);
+                });
+                document.getElementById('dining-hall-name').textContent = selectedDiningHall;
+                eatHereButton.style.display = 'block';
+            }
+        });
+        
+        eatHereButton.addEventListener('click', () => {
+            const selectedDiningHall = document.getElementById('dining-hall-name').textContent;
+            const currentUser = users[users.length - 1];
+            currentUser.diningHall = selectedDiningHall;
+            currentUser.time = new Date().toLocaleTimeString();
+            eatHereScreen.style.display = 'flex';
+            selectedDiningHallElement.textContent = selectedDiningHall;
+            const usersAtDiningHall = users.filter((user) => user.diningHall === selectedDiningHall);
+            usersList.innerHTML = '';
+            usersAtDiningHall.forEach((user) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${user.name} - ${user.time}`;
+                usersList.appendChild(listItem);
+            });
+            // Update list
+            const selectedList = document.getElementById('users-list');
+            const userListItem = document.createElement('li');
+            userListItem.textContent = `${currentUser.name} - ${currentUser.time}`;
+            selectedList.appendChild(userListItem);
+        });
+        
+        backButton.addEventListener('click', () => {
+            eatHereScreen.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
