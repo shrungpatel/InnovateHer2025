@@ -1,4 +1,4 @@
-# Purdue-Menus-Mogged
+# Purdue-Eats
 Members: Shrung, Alissa, Sharanya
 
-hello everyone
+Login.html is where you will start.
