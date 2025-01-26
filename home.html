@@ -69,33 +69,39 @@
       </div>
       <div class="right">
         <h2>Location:</h2>
-
-        <gmp-map center="-33.9,151.2" zoom="10" map-id="DEMO_MAP_ID">
-            <gmp-advanced-marker position="-33.890542, 151.274856" title="Bondi Beach">
-              <img class="flag-icon"
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtU_8dDu5q_BsV1ciLpEgT8y9j_DHgPsM&loading=async&libraries=marker&v=beta&solution_channel=GMP_CCS_complexmarkers_v3"
+        ></script>
+        <script>
+            // After setting up the DB, it should loop through a persons
+            // friends list and say invitation sent to [name]
+            // Function to show a success alert when the button is clicked
+            function goToDining(name) {
+                alert("Going to " + name + " Dining Court!");
+            }
+            </script>
+        <gmp-map center="40.428540192473235, -86.92080321465559" zoom="15" map-id="DEMO_MAP_ID">
+            <gmp-advanced-marker position="40.42714959780408, -86.9211147291905" title="Windsor">
+              <img onclick="goToDining('Windsor')", class="flag-icon"
                    src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"/>
             </gmp-advanced-marker>
-            <gmp-advanced-marker position="-33.923036, 151.259052" title="Coogee Beach">
-              <img class="flag-icon"
+            <gmp-advanced-marker position="40.428540192473235, -86.92080321465559" title="Wiley">
+              <img onclick="goToDining('Wiley')", class="flag-icon"
                    src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"/>
             </gmp-advanced-marker>
-            <gmp-advanced-marker position="-34.028249, 151.157507" title="Cronulla Beach">
-              <img class="flag-icon"
+            <gmp-advanced-marker position="40.42577124701193, -86.9248177818407" title="Earhart">
+              <img onclick="goToDining('Earhart')", class="flag-icon"
                    src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"/>
             </gmp-advanced-marker>
-            <gmp-advanced-marker position="-33.800101, 151.287478" title="Manly Beach">
-              <img class="flag-icon"
+            <gmp-advanced-marker position="40.42661719507577, -86.92687498387924" title="Hillenbrand">
+              <img onclick="goToDining('Hillenbrand')", class="flag-icon"
                    src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"/>
             </gmp-advanced-marker>
-            <gmp-advanced-marker position="-33.950198, 151.259302" title="Maroubra Beach">
-              <img class="flag-icon"
+            <gmp-advanced-marker position="40.432149257505166, -86.91955749700983" title="Ford">
+              <img onclick="goToDining('Ford')", class="flag-icon"
                    src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"/>
             </gmp-advanced-marker>
           </gmp-map>
-          <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtU_8dDu5q_BsV1ciLpEgT8y9j_DHgPsM&loading=async&libraries=marker&v=beta&solution_channel=GMP_CCS_complexmarkers_v3"
-            defer
-          ></script>
         <div class="center-buttons">
             <button class="dining-court">Earhart</button>
             <button class="dining-court">Ford</button>
